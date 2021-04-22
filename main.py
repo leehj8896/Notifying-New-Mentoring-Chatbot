@@ -1,8 +1,9 @@
-import json, time, requests, datetime
+import json, time, requests, datetime, os
 from selenium import webdriver
 
 
-with open('config.json', 'r', encoding='utf-8') as f:
+
+with open(f'{os.getcwd()}/config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 email = config['email']
 password = config['password']
@@ -87,7 +88,7 @@ try:
 
 
     # 이전 게시물
-    with open('prev_posts.json', 'r', encoding='utf-8') as f:
+    with open(f'{os.getcwd()}/prev_posts.json', 'r', encoding='utf-8') as f:
         prev_posts = json.load(f)
     print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 이전 게시물 확인')
 
@@ -102,7 +103,7 @@ try:
 
 
     # 파일 쓰기
-    with open('prev_posts.json', 'w', encoding='utf-8') as f:
+    with open(f'{os.getcwd()}/prev_posts.json', 'w', encoding='utf-8') as f:
         json.dump(prev_posts, f, indent='\t', ensure_ascii=False)
     print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 이전 게시물 갱신')
 
