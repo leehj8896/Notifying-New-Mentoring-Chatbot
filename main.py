@@ -11,7 +11,6 @@ board_url = config['board_url']
 slack_url = config['slack_url']
 today = datetime.datetime.now().now()
 
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 시작')
 # try:
 # 접속
 options = webdriver.ChromeOptions()
@@ -27,7 +26,6 @@ driver = webdriver.Chrome(chrome_path, chrome_options=options)
 driver.get(board_url)
 driver.implicitly_wait(10)
 time.sleep(3)
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 접속 완료')
 
 
 # alert
@@ -35,7 +33,6 @@ alert = driver.switch_to_alert()
 alert.accept()
 driver.implicitly_wait(10)
 time.sleep(3)
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] Alert 확인')
 
 
 # 로그인
@@ -46,7 +43,6 @@ input_pw.send_keys(password)
 input_pw.submit()
 driver.implicitly_wait(10)
 time.sleep(3)
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 로그인')
 
 
 # alert
@@ -54,7 +50,6 @@ alert = driver.switch_to_alert()
 alert.accept()
 driver.implicitly_wait(10)
 time.sleep(3)
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] Alert 확인')
 
 
 # 현재 게시물
@@ -72,24 +67,20 @@ for row in rows:
         '작성자':작성자,
         '특강일':특강일,
     }
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 현재 게시물 확인')
 
 
 # 로그아웃
 logout_btn = driver.find_element_by_css_selector('#header > div.topmenu > ul > li:nth-child(1) > button')
 logout_btn.click()
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 로그아웃')
 
 
 # 브라우저 종료
 driver.quit()
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 브라우저 종료')
 
 
 # 이전 게시물
 with open(f'{path}/prev_posts.json', 'r', encoding='utf-8') as f:
     prev_posts = json.load(f)
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 이전 게시물 확인')
 
 
 # 새로운 게시물
@@ -98,13 +89,11 @@ for 링크, 정보 in curr_posts.items():
     if 링크 not in prev_posts:
         new_posts[링크] = 정보
         prev_posts[링크] = 정보
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 새 게시물 확인')
 
 
 # 파일 쓰기
 with open(f'{path}/prev_posts.json', 'w', encoding='utf-8') as f:
     json.dump(prev_posts, f, indent='\t', ensure_ascii=False)
-print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 이전 게시물 갱신')
 
 
 headers = {'Content-Type': 'application/json'}
@@ -114,14 +103,7 @@ for 링크, 정보 in new_posts.items():
     res = requests.post(slack_url, headers=headers, data=json.dumps(data))
 
 
-if new_posts:
-    print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 알림 발송')
-else:
-    print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 새 게시물 없음')
-
-
 # except:
 #     headers = {'Content-Type': 'application/json'}
 #     data = {'text':'❌에러남❌'}
 #     res = requests.post(slack_url, headers=headers, data=json.dumps(data))
-#     print(f'[{today.year}-{today.month}-{today.day} {today.hour}:{today.minute}] 에러 발생')
