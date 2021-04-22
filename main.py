@@ -91,6 +91,12 @@ for 링크, 정보 in curr_posts.items():
         prev_posts[링크] = 정보
 
 
+if new_posts:
+    print(f'[{today}] 알림 발송')
+else:
+    print(f'[{today}] 새 게시물 없음')
+
+
 # 파일 쓰기
 with open(f'{path}/prev_posts.json', 'w', encoding='utf-8') as f:
     json.dump(prev_posts, f, indent='\t', ensure_ascii=False)
