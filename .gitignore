@@ -5,3 +5,4 @@ config.json
 prev_posts.json
 chromedriver.exe
 chromedriver_win32.zip
+result.log

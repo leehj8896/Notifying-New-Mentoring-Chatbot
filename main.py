@@ -1,4 +1,4 @@
-import json, time, requests
+import json, time, requests, datetime
 from selenium import webdriver
 
 
@@ -9,6 +9,7 @@ password = config['password']
 chrome_path = config['chrome_path']
 board_url = config['board_url']
 slack_url = config['slack_url']
+today = datetime.datetime.now().now()
 
 
 try:
@@ -104,13 +105,13 @@ try:
     
     
     if new_posts:
-        print('***** Notified New Mentoring')
+        print(f'[{today.year}-{today.hour}-{today.day}] Notified New Mentoring')
     else:
-        print('***** No New Metoring')
+        print(f'[{today.year}-{today.hour}-{today.day}] No New Metoring')
 
 
 except:
     headers = {'Content-Type': 'application/json'}
     data = {'text':'❌에러남❌'}
     res = requests.post(slack_url, headers=headers, data=json.dumps(data))
-    print('***** Error')
+    print(f'[{today.year}-{today.hour}-{today.day}] Error')
