@@ -111,5 +111,5 @@ try:
 
 except:
     headers = {'Content-Type': 'application/json'}
-    data = {'text':'❌❌❌❌\n에러남.. 예외처리 없애보자\n❌❌❌❌'}
+    data = {'text':'❌❌❌❌\n에러남..\n예외 처리 없애고 로그 남겨보자\n❌❌❌❌'}
     res = requests.post(slack_url, headers=headers, data=json.dumps(data))
