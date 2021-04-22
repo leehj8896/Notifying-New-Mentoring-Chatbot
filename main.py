@@ -1,5 +1,4 @@
 import json, time, requests
-from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 
 
@@ -102,8 +101,16 @@ try:
         content = f'👍제목\n{정보["제목"]}\n👍멘토 {정보["작성자"]}\n👍날짜 {정보["특강일"]}\n👍링크\n{링크}'
         data = {'text':content}
         res = requests.post(slack_url, headers=headers, data=json.dumps(data))
+    
+    
+    if new_posts:
+        print('***** Notified New Mentoring')
+    else:
+        print('***** No New Metoring')
+
 
 except:
     headers = {'Content-Type': 'application/json'}
     data = {'text':'❌에러남❌'}
     res = requests.post(slack_url, headers=headers, data=json.dumps(data))
+    print('***** Error')
