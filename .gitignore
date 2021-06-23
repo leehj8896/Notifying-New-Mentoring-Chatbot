@@ -1,5 +1,6 @@
 chromedriver_win32/
 venv/
+.idea/
 
 config.json
 prev_posts.json
